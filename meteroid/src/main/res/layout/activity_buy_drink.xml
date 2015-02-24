@@ -58,29 +58,29 @@
                 android:layout_width="200dp"
                 android:paddingLeft="9dip"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"/>
+                android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/balance"
                 android:layout_width="200dp"
                 android:paddingLeft="9dip"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"/>
+                android:textSize="20sp"/>
 
         </LinearLayout>
 
         <ImageButton
             android:id="@+id/button_back"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             android:layout_gravity="right"
             android:src="@drawable/button_back"
             android:contentDescription="@string/button_back"/>
 
         <ImageButton
             android:id="@+id/button_reload"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             android:layout_gravity="right"
             android:src="@drawable/button_reload"
             android:contentDescription="@string/button_reload"/>
@@ -91,7 +91,7 @@
         android:id="@+id/buy_drink_error"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:visibility="gone"
         android:text="@string/buy_drink_error"/>
 
