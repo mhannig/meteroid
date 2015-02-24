@@ -42,11 +42,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Button;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -64,7 +64,7 @@ import de.chaosdorf.meteroid.model.User;
 import de.chaosdorf.meteroid.util.MenuUtility;
 import de.chaosdorf.meteroid.util.Utility;
 
-public class BuyDrink extends Activity implements LongRunningIOCallback, AdapterView.OnItemClickListener
+public class DepositMoney extends Activity implements LongRunningIOCallback, AdapterView.OnItemClickListener
 {
 	private final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.00 '\u20AC'");
 
@@ -87,7 +87,7 @@ public class BuyDrink extends Activity implements LongRunningIOCallback, Adapter
 	{
 		super.onCreate(savedInstanceState);
 		activity = this;
-		setContentView(R.layout.activity_buy_drink);
+		setContentView(R.layout.activity_deposit_money);
 
 		gridView = (GridView) findViewById(R.id.grid_view);
 		listView = (ListView) findViewById(R.id.list_view);
@@ -113,22 +113,13 @@ public class BuyDrink extends Activity implements LongRunningIOCallback, Adapter
 		{
 			public void onClick(View view)
 			{
-				Utility.startActivity(activity, BuyDrink.class);
+				Utility.startActivity(activity, DepositMoney.class);
 			}
 		});
 
-        final Button depositButton = (Button) findViewById(R.id.button_deposit_money);
-        depositButton.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View view)
-            {
-                Utility.startActivity(activity, DepositMoney.class);
-            }
-        });
-
 		new LongRunningIOGet(this, LongRunningIOTask.GET_USER, hostname + "users/" + userID + ".json").execute();
-		new LongRunningIOGet(this, LongRunningIOTask.GET_DRINKS, hostname + "drinks.json").execute();
-	}
+        loadDeposits();
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(final Menu menu)
@@ -154,7 +145,7 @@ public class BuyDrink extends Activity implements LongRunningIOCallback, Adapter
 			case R.id.use_grid_view:
 				useGridView = Utility.toggleUseGridView(activity);
 				item.setChecked(useGridView);
-				Utility.startActivity(activity, BuyDrink.class);
+				Utility.startActivity(activity, DepositMoney.class);
 				break;
 			case R.id.multi_user_mode:
 				multiUserMode = MenuUtility.onClickMultiUserMode(this, item);
@@ -242,28 +233,6 @@ public class BuyDrink extends Activity implements LongRunningIOCallback, Adapter
 					break;
 				}
 
-				// Parse drinks
-				case GET_DRINKS:
-				{
-					final List<BuyableItem> buyableItemList = DrinkController.parseAllDrinksFromJSON(json, hostname);
-					Collections.sort(buyableItemList, new BuyableComparator());
-
-					final BuyableItemAdapter buyableItemAdapter = new BuyableItemAdapter(buyableItemList);
-					if (useGridView)
-					{
-						gridView.setAdapter(buyableItemAdapter);
-						gridView.setOnItemClickListener(this);
-						gridView.setVisibility(View.VISIBLE);
-					}
-					else
-					{
-						listView.setAdapter(buyableItemAdapter);
-						listView.setOnItemClickListener(this);
-						listView.setVisibility(View.VISIBLE);
-					}
-					break;
-				}
-
 				// Bought drink
 				case PAY_DRINK:
 				{
@@ -297,7 +266,27 @@ public class BuyDrink extends Activity implements LongRunningIOCallback, Adapter
 		}
 	}
 
-	@Override
+    private void loadDeposits() {
+        final List<BuyableItem> buyableItemList = new ArrayList<BuyableItem>();
+        MoneyController.addMoney(buyableItemList);
+        Collections.sort(buyableItemList, new BuyableComparator());
+
+        final BuyableItemAdapter buyableItemAdapter = new BuyableItemAdapter(buyableItemList);
+        if (useGridView)
+        {
+            gridView.setAdapter(buyableItemAdapter);
+            gridView.setOnItemClickListener(this);
+            gridView.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            listView.setAdapter(buyableItemAdapter);
+            listView.setOnItemClickListener(this);
+            listView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
 	public void onItemClick(final AdapterView<?> adapterView, final View view, final int index, final long l)
 	{
 		if (index < 0 || isBuying.get())

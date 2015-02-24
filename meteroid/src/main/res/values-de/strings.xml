@@ -59,11 +59,15 @@
     <string name="buy_drink_added_money">Erfolgreich %s gebucht</string>
     <string name="buy_drink_error">Daten konnte nicht von mete geladen werden. Bitte Netzwerkverbindung überprüfen oder Hostname/Benutzername ändern um fortzufahren.</string>
 
+    <!-- Deposit money -->
+    <string name="deposit_money_label">Geld einzahlen</string>
+
     <!-- Buttons -->
     <string name="button_back">Zurück</string>
     <string name="button_reload">Neu laden</string>
     <string name="button_save">Speichern</string>
     <string name="button_ok">OK</string>
+    <string name="button_deposit_money">Einzahlen</string>
 
     <!-- Menues -->
     <string name="menu_edit_hostname">Hostname ändern</string>

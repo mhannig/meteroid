@@ -64,6 +64,10 @@
             android:label="@string/buy_drink_label"/>
 
         <activity
+            android:name=".DepositMoney"
+            android:label="@string/deposit_money_label"/>
+
+        <activity
             android:name=".AddUserActivity"
             android:label="@string/add_user_label"/>
 
