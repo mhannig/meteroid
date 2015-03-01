@@ -145,7 +145,7 @@ abstract public class BookingActivity extends Activity implements LongRunningIOC
 			case R.id.use_grid_view:
 				useGridView = Utility.toggleUseGridView(activity);
 				item.setChecked(useGridView);
-				Utility.startActivity(activity, activity.getClass());
+				Utility.startActivity(activity, BookingActivity.class);
 				break;
 			case R.id.multi_user_mode:
 				multiUserMode = MenuUtility.onClickMultiUserMode(this, item);
@@ -270,11 +270,16 @@ abstract public class BookingActivity extends Activity implements LongRunningIOC
 							final TextView balance = (TextView) findViewById(R.id.balance);
 							balance.setText(DECIMAL_FORMAT.format(user.getBalance() - buyableItem.getDonationRecommendation()));
 						}
-						if (multiUserMode && buyableItem.isDrink())
-						{
-							Utility.startActivity(activity, PickUsername.class);
-							break;
-						}
+						if (multiUserMode)
+                        {
+                            if (buyableItem.isDrink()) {
+                                Utility.startActivity(activity, PickUsername.class);
+                                break;
+                            } else {
+                                Utility.startActivity(activity, BuyDrink.class);
+                                break;
+                            }
+                        }
 					}
 					new LongRunningIOGet(this, LongRunningIOTask.UPDATE_USER, hostname + "users/" + userID + ".json").execute();
 					break;
