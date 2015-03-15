@@ -87,7 +87,6 @@ abstract public class BookingActivity extends Activity implements LongRunningIOC
 	protected void onCreate(final Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_buy_drink);
 
 		gridView = (GridView) findViewById(R.id.grid_view);
 		listView = (ListView) findViewById(R.id.list_view);

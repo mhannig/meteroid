@@ -71,16 +71,16 @@
 
         <ImageButton
             android:id="@+id/button_back"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="right"
             android:src="@drawable/button_back"
             android:contentDescription="@string/button_back"/>
 
         <ImageButton
             android:id="@+id/button_reload"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="right"
             android:src="@drawable/button_reload"
             android:contentDescription="@string/button_reload"/>
