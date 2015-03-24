@@ -29,6 +29,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -62,7 +63,7 @@ import de.chaosdorf.meteroid.model.User;
 import de.chaosdorf.meteroid.util.MenuUtility;
 import de.chaosdorf.meteroid.util.Utility;
 
-abstract public class BookingActivity extends Activity implements LongRunningIOCallback, AdapterView.OnItemClickListener
+abstract public class BookingActivity extends FragmentActivity implements LongRunningIOCallback, AdapterView.OnItemClickListener
 {
 	private final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.00 '\u20AC'");
 
@@ -296,15 +297,19 @@ abstract public class BookingActivity extends Activity implements LongRunningIOC
 		if (isBuying.compareAndSet(false, true))
 		{
 			final BuyableItem buyableItem = (BuyableItem) (useGridView ? gridView.getItemAtPosition(index) : listView.getAdapter().getItem(index));
-			if (buyableItem != null)
-			{
-				buyingItem.set(buyableItem);
-				new LongRunningIOGet(this, LongRunningIOTask.PAY_DRINK, hostname + "users/" + userID + "/deposit?amount=" + (-buyableItem.getDonationRecommendation())).execute();
-			}
-		}
+            doBooking(buyableItem);
+        }
 	}
 
-	protected class BuyableItemAdapter extends ArrayAdapter<BuyableItem>
+    protected void doBooking(BuyableItem buyableItem) {
+        if (buyableItem != null)
+        {
+            buyingItem.set(buyableItem);
+            new LongRunningIOGet(this, LongRunningIOTask.PAY_DRINK, hostname + "users/" + userID + "/deposit?amount=" + (-buyableItem.getDonationRecommendation())).execute();
+        }
+    }
+
+    protected class BuyableItemAdapter extends ArrayAdapter<BuyableItem>
 	{
 		private final List<BuyableItem> drinkList;
 		private final LayoutInflater inflater;

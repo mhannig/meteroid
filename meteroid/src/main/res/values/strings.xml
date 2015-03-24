@@ -61,13 +61,16 @@
 
     <!-- Deposit money -->
     <string name="deposit_money_label">Deposit money</string>
+    <string name="deposit_money_amount_label">Amount to deposit:</string>
 
     <!-- Buttons -->
     <string name="button_back">Back</string>
     <string name="button_reload">Reload</string>
     <string name="button_save">Save</string>
     <string name="button_ok">OK</string>
+    <string name="button_cancel">Cancel</string>
     <string name="button_deposit_money">Deposit</string>
+    <string name="button_deposit_amount_money">Amount</string>
 
     <!-- Menues -->
     <string name="menu_edit_hostname">Edit hostname</string>

@@ -61,13 +61,16 @@
 
     <!-- Deposit money -->
     <string name="deposit_money_label">Geld einzahlen</string>
+    <string name="deposit_money_amount_label">Einzuzahlender Betrag:</string>
 
     <!-- Buttons -->
     <string name="button_back">Zurück</string>
     <string name="button_reload">Neu laden</string>
     <string name="button_save">Speichern</string>
     <string name="button_ok">OK</string>
+    <string name="button_cancel">Abbrechen</string>
     <string name="button_deposit_money">Einzahlen</string>
+    <string name="button_deposit_amount_money">Betrag</string>
 
     <!-- Menues -->
     <string name="menu_edit_hostname">Hostname ändern</string>
