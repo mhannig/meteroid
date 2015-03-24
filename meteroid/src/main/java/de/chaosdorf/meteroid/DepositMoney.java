@@ -25,7 +25,14 @@
 package de.chaosdorf.meteroid;
 
 import android.os.Bundle;
+import android.view.View;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import de.chaosdorf.meteroid.controller.MoneyController;
+import de.chaosdorf.meteroid.model.BuyableItem;
 import de.chaosdorf.meteroid.util.Utility;
 
 public class DepositMoney extends BookingActivity
@@ -39,6 +46,27 @@ public class DepositMoney extends BookingActivity
         super.onCreate(savedInstanceState);
 
         loadDeposits();
+    }
+
+    protected void loadDeposits()
+    {
+        final List<BuyableItem> buyableItemList = new ArrayList<BuyableItem>();
+        MoneyController.addMoney(buyableItemList);
+        Collections.sort(buyableItemList, new BuyableComparator());
+
+        final BuyableItemAdapter buyableItemAdapter = new BuyableItemAdapter(buyableItemList);
+        if (useGridView)
+        {
+            gridView.setAdapter(buyableItemAdapter);
+            gridView.setOnItemClickListener(this);
+            gridView.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            listView.setAdapter(buyableItemAdapter);
+            listView.setOnItemClickListener(this);
+            listView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

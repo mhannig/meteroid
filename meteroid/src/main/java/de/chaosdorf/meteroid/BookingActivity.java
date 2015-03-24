@@ -46,7 +46,6 @@ import android.widget.TextView;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -54,7 +53,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 import de.chaosdorf.meteroid.controller.DrinkController;
-import de.chaosdorf.meteroid.controller.MoneyController;
 import de.chaosdorf.meteroid.controller.UserController;
 import de.chaosdorf.meteroid.longrunningio.LongRunningIOCallback;
 import de.chaosdorf.meteroid.longrunningio.LongRunningIOGet;
@@ -74,13 +72,13 @@ abstract public class BookingActivity extends Activity implements LongRunningIOC
 	protected Activity activity = null;
     protected String hostname = null;
 
-    private GridView gridView = null;
-	private ListView listView = null;
+    protected GridView gridView = null;
+    protected ListView listView = null;
 
 	private int userID = 0;
 	private User user;
 
-	private boolean useGridView;
+	protected boolean useGridView;
 	private boolean multiUserMode;
 
 	@Override
@@ -287,27 +285,6 @@ abstract public class BookingActivity extends Activity implements LongRunningIOC
 		}
 	}
 
-    protected void loadDeposits()
-    {
-        final List<BuyableItem> buyableItemList = new ArrayList<BuyableItem>();
-        MoneyController.addMoney(buyableItemList);
-        Collections.sort(buyableItemList, new BuyableComparator());
-
-        final BuyableItemAdapter buyableItemAdapter = new BuyableItemAdapter(buyableItemList);
-        if (useGridView)
-        {
-            gridView.setAdapter(buyableItemAdapter);
-            gridView.setOnItemClickListener(this);
-            gridView.setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            listView.setAdapter(buyableItemAdapter);
-            listView.setOnItemClickListener(this);
-            listView.setVisibility(View.VISIBLE);
-        }
-    }
-
 	@Override
 	public void onItemClick(final AdapterView<?> adapterView, final View view, final int index, final long l)
 	{
@@ -327,7 +304,7 @@ abstract public class BookingActivity extends Activity implements LongRunningIOC
 		}
 	}
 
-	private class BuyableItemAdapter extends ArrayAdapter<BuyableItem>
+	protected class BuyableItemAdapter extends ArrayAdapter<BuyableItem>
 	{
 		private final List<BuyableItem> drinkList;
 		private final LayoutInflater inflater;
@@ -382,7 +359,7 @@ abstract public class BookingActivity extends Activity implements LongRunningIOC
 		}
 	}
 
-	private class BuyableComparator implements Comparator<BuyableItem>
+	protected class BuyableComparator implements Comparator<BuyableItem>
 	{
 		@Override
 		public int compare(final BuyableItem buyableItem, final BuyableItem buyableItem2)
