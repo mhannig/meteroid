@@ -93,6 +93,14 @@
             android:text="@string/button_deposit_money"
             android:contentDescription="@string/button_deposit_money"/>
 
+        <Button
+            android:id="@+id/button_transfer_money"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="right"
+            android:text="@string/button_transfer_money"
+            android:contentDescription="@string/button_transfer_money"/>
+
     </LinearLayout>
 
     <TextView

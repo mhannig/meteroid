@@ -71,6 +71,7 @@
     <string name="button_cancel">Abbrechen</string>
     <string name="button_deposit_money">Einzahlen</string>
     <string name="button_deposit_amount_money">Betrag</string>
+    <string name="button_transfer_money">Überweisen</string>
 
     <!-- Menues -->
     <string name="menu_edit_hostname">Hostname ändern</string>

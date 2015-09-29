@@ -24,6 +24,7 @@
 
 package de.chaosdorf.meteroid.controller;
 
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -86,5 +87,12 @@ public class DrinkController
 		{
 			return null;
 		}
+	}
+
+	public static List<BasicNameValuePair> drinkIdToPostParams(final Drink drink)
+	{
+		final List<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
+		pairs.add(new BasicNameValuePair("drink[id]", String.valueOf(drink.getId())));
+		return pairs;
 	}
 }

@@ -24,12 +24,18 @@
 
 package de.chaosdorf.meteroid;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.Button;
 
 import de.chaosdorf.meteroid.longrunningio.LongRunningIOGet;
 import de.chaosdorf.meteroid.longrunningio.LongRunningIOTask;
+import de.chaosdorf.meteroid.model.BuyableItem;
+import de.chaosdorf.meteroid.model.Money;
 import de.chaosdorf.meteroid.util.Utility;
 
 public class BuyDrink extends BookingActivity
@@ -51,6 +57,17 @@ public class BuyDrink extends BookingActivity
             }
         });
 
+        final Button transferButton = (Button) findViewById(R.id.button_transfer_money);
+        transferButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View view)
+            {
+                FragmentManager fm = getSupportFragmentManager();
+                DialogFragment dialogFragment = new MoneyDialogFragment();
+                dialogFragment.show(fm, "Transfer money");
+            }
+        });
+
 		new LongRunningIOGet(this, LongRunningIOTask.GET_DRINKS, hostname + "drinks.json").execute();
 	}
 
@@ -58,5 +75,15 @@ public class BuyDrink extends BookingActivity
     protected void backButtonOnClick() {
         Utility.resetUsername(activity);
         Utility.startActivity(activity, PickUsername.class);
+    }
+
+    @Override
+    public void onUserSelectAmount(double amount) {
+        BuyableItem buyableItem = new Money(amount + " Euro", "euro_" + amount, amount);
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs.edit().putLong("amount", (long) amount).apply();
+        doBooking(buyableItem);
+        Utility.resetUsername(activity);
+        Utility.startActivity(activity, PickUsernameTransfer.class);
     }
 }
