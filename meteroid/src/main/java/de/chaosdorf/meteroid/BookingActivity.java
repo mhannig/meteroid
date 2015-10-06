@@ -274,19 +274,18 @@ abstract public class BookingActivity extends FragmentActivity implements LongRu
                         {
                             if (buyableItem.isDrink()) {
                                 Utility.startActivity(activity, PickUsername.class);
-                                break;
+								break;
                             } else {
                                 Utility.startActivity(activity, BuyDrink.class);
-                                break;
+								break;
                             }
                         }
                         if (buyableItem.isDrink()) {
-                            new LongRunningIOPost(this, LongRunningIOTask.UPDATE_USER, hostname + "users/" + userID + "/purchase.json",
+                            new LongRunningIOPost(this, LongRunningIOTask.PAY_DRINK, hostname + "users/" + userID + "/purchase.json",
                                     DrinkController.userIdToPostParams((Drink) buyableItem)).execute();
                         } else {
-                            new LongRunningIOGet(this, LongRunningIOTask.UPDATE_USER, hostname + "users/" + userID + ".json").execute();
+                            new LongRunningIOGet(this, LongRunningIOTask.PAY_DRINK, hostname + "users/" + userID + ".json").execute();
                         }
-                        break;
                     }
 					break;
 				}
