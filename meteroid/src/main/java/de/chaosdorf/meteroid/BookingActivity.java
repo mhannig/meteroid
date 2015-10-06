@@ -57,8 +57,10 @@ import de.chaosdorf.meteroid.controller.DrinkController;
 import de.chaosdorf.meteroid.controller.UserController;
 import de.chaosdorf.meteroid.longrunningio.LongRunningIOCallback;
 import de.chaosdorf.meteroid.longrunningio.LongRunningIOGet;
+import de.chaosdorf.meteroid.longrunningio.LongRunningIOPost;
 import de.chaosdorf.meteroid.longrunningio.LongRunningIOTask;
 import de.chaosdorf.meteroid.model.BuyableItem;
+import de.chaosdorf.meteroid.model.Drink;
 import de.chaosdorf.meteroid.model.User;
 import de.chaosdorf.meteroid.util.MenuUtility;
 import de.chaosdorf.meteroid.util.Utility;
@@ -278,8 +280,14 @@ abstract public class BookingActivity extends FragmentActivity implements LongRu
                                 break;
                             }
                         }
-					}
-					new LongRunningIOGet(this, LongRunningIOTask.UPDATE_USER, hostname + "users/" + userID + ".json").execute();
+                        if (buyableItem.isDrink()) {
+                            new LongRunningIOPost(this, LongRunningIOTask.UPDATE_USER, hostname + "users/" + userID + "/purchase.json",
+                                    DrinkController.userIdToPostParams((Drink) buyableItem)).execute();
+                        } else {
+                            new LongRunningIOGet(this, LongRunningIOTask.UPDATE_USER, hostname + "users/" + userID + ".json").execute();
+                        }
+                        break;
+                    }
 					break;
 				}
 			}
