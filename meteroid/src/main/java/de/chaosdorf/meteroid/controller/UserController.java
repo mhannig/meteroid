@@ -79,6 +79,7 @@ public class UserController
 					jsonObject.getInt("id"),
 					jsonObject.getString("name"),
 					jsonObject.getString("email"),
+					jsonObject.getString("avatar_url"),
 					jsonObject.getDouble("balance"),
 					new Date(),
 					new Date()

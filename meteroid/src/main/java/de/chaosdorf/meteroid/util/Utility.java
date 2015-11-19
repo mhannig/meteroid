@@ -46,11 +46,9 @@ public class Utility
 {
 	public static void displayToastMessage(final Activity activity, final String message)
 	{
-		activity.runOnUiThread(new Runnable()
-		{
+		activity.runOnUiThread(new Runnable() {
 			@Override
-			public void run()
-			{
+			public void run() {
 				Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
 			}
 		});
@@ -112,6 +110,23 @@ public class Utility
 			}
 		}
 		icon.setImageBitmap(ImageLoaderSingleton.getUserDefaultImage());
+	}
+
+	public static void loadAvatarImage(
+			final Activity activity,
+			final ImageView icon,
+			final User user
+	)
+	{
+		try {
+			final URL url = new URL(user.getAvatarUrl());
+			ImageLoaderSingleton.getInstance(activity).displayImage(
+					url, icon, ImageLoaderSingleton.getUserDefaultImage()
+			);
+		}
+		catch(MalformedURLException foo) {
+			// Our URLS are not malformed!11ELF
+		}
 	}
 
 	public static void loadBuyableItemImage(final Activity activity, final ImageView icon, final BuyableItem buyableItem)

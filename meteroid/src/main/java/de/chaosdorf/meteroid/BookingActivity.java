@@ -199,7 +199,7 @@ abstract public class BookingActivity extends FragmentActivity implements LongRu
                         final TextView label = (TextView) findViewById(R.id.username);
                         final ImageView icon = (ImageView) findViewById(R.id.icon);
                         label.setText(user.getName());
-                        Utility.loadGravatarImage(activity, icon, user);
+                        Utility.loadAvatarImage(activity, icon, user);
                     }
                     final TextView balance = (TextView) findViewById(R.id.balance);
                     balance.setText(DECIMAL_FORMAT.format(user.getBalance()));

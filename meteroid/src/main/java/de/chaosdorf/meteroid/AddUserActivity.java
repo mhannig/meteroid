@@ -110,6 +110,7 @@ public class AddUserActivity extends Activity implements LongRunningIOCallback
 				final User user = new User(0,
 						username.toString(),
 						emailValue,
+						"", // no avatar url
 						balanceValue,
 						new Date(),
 						new Date()
