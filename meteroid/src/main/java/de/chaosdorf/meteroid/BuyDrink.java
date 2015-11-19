@@ -57,6 +57,8 @@ public class BuyDrink extends BookingActivity
             }
         });
 
+
+        /*
         final Button transferButton = (Button) findViewById(R.id.button_transfer_money);
         transferButton.setOnClickListener(new View.OnClickListener()
         {
@@ -66,7 +68,7 @@ public class BuyDrink extends BookingActivity
                 DialogFragment dialogFragment = new MoneyDialogFragment();
                 dialogFragment.show(fm, "Transfer money");
             }
-        });
+        });*/
 
 		new LongRunningIOGet(this, LongRunningIOTask.GET_DRINKS, hostname + "drinks.json").execute();
 	}
