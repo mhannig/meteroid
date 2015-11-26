@@ -77,8 +77,8 @@ abstract public class BookingActivity extends FragmentActivity implements LongRu
     protected GridView gridView = null;
     protected ListView listView = null;
 
-    private int userID = 0;
-    private User user;
+    protected int userID = 0;
+    protected User user;
 
     protected boolean useGridView;
     private boolean multiUserMode;
