@@ -65,7 +65,7 @@
 
     <!-- Transfer -->
     <string name="transfer_failed">Transfer failed.</string>
-    <string name="transfer_success">Deposit of %s in target account successful.</string>
+    <string name="transfer_success">Transfer of %.02f units to target account successful.</string>
     <string name="transfer_money_amount_label">User to user transfer</string>
     <string name="transfer_money_label">Transfer money</string>
 

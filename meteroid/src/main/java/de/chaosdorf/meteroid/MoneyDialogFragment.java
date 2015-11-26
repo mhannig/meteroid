@@ -50,7 +50,15 @@ public class MoneyDialogFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         BookingActivity callingActivity = (BookingActivity) getActivity();
                         EditText input = (EditText) ((AlertDialog) dialog).findViewById(R.id.input_deposit_amount);
-                        double amount = Double.parseDouble(input.getText().toString());
+                        double amount = 0.0;
+                        try {
+                            amount = Double.parseDouble(input.getText().toString());
+                        }
+                        catch (NumberFormatException e) {
+                            // Well yeah. This was not a valid amount
+                            // TODO: Implement warning
+                            amount = 0.0;
+                        }
                         callingActivity.onUserSelectAmount(amount);
                         dialog.dismiss();
                     }

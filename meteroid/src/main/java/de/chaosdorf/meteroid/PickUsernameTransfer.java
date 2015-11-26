@@ -140,14 +140,14 @@ public class PickUsernameTransfer extends Activity implements LongRunningIOCallb
 		if (task == LongRunningIOTask.MAKE_TRANSFER) {
 			// Check if transfer was successful
 			prefs = PreferenceManager.getDefaultSharedPreferences(this);
-			long amount = prefs.getLong("amount",0);
+			float amount = prefs.getFloat("amount",0);
 			int srcUserId = prefs.getInt("src_user_id",0);
 
 			// Inform user of successful transfer
 			Utility.displayToastMessage(activity,
 					String.format(
 							getResources().getString(R.string.transfer_success),
-							String.valueOf(amount)
+							amount
 					)
 			);
 
@@ -165,8 +165,11 @@ public class PickUsernameTransfer extends Activity implements LongRunningIOCallb
 		if (dstUser != null && dstUser.getName() != null)
 		{
 			prefs = PreferenceManager.getDefaultSharedPreferences(this);
-			long amount = prefs.getLong("amount",0);
+			float amount = prefs.getFloat("amount",0);
 			int srcUserId = prefs.getInt("src_user_id",0);
+
+			// only transfer absolute values. Don't steal money.
+			amount = Math.abs(amount);
 
 			// Make POST payload
 			final List<BasicNameValuePair> payload = new ArrayList<BasicNameValuePair>();
@@ -178,16 +181,6 @@ public class PickUsernameTransfer extends Activity implements LongRunningIOCallb
 					this, LongRunningIOTask.MAKE_TRANSFER, hostname + "transfers.json",
 					payload
 			).execute();
-
-			/*
-			new LongRunningIOGet(
-					this,
-					LongRunningIOTask.MAKE_TRANSFER,
-					hostname + "users/" + dstUser.getId() + "/deposit?amount=" + (prefs.getLong("amount", 0))
-			).execute();
-
-
-			 */
 		}
 	}
 

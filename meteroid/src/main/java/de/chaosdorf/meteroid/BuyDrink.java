@@ -82,7 +82,7 @@ public class BuyDrink extends BookingActivity
     public void onUserSelectAmount(double amount) {
         BuyableItem buyableItem = new Money(amount + " Euro", "euro_" + amount, amount);
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        prefs.edit().putLong("amount", (long) amount).apply();
+        prefs.edit().putFloat("amount", (float) amount).apply();
         prefs.edit().putInt("src_user_id", user.getId()).apply();
         // doBooking(buyableItem);
         Utility.resetUsername(activity);
